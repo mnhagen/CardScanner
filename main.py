@@ -51,7 +51,7 @@ result = search_card(
     set_code = set_code,
     number = set_number,
     rarity = rarity,
-    lang = language
+    lang = "not english"
     )
 
 print()

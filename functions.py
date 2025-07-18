@@ -16,8 +16,11 @@ def order_points(pts):
     rect[3] = pts[np.argmax(diff)]
     return rect
 
-def get_transform_matrix(img, threshold = 0.2):
+def get_transform_matrix(img, threshold=0.2, min_area_fraction=0.2, return_img=False):
+    height_img, width_img = img.shape[:2]
     magic_aspect = float(width) / height
+    min_area = min_area_fraction * (width_img * height_img)
+
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     edges = cv2.Canny(blurred, 50, 150)
@@ -35,18 +38,28 @@ def get_transform_matrix(img, threshold = 0.2):
             aspect_ratio = float(w) / h
             area = cv2.contourArea(approx)
 
-            if 1 - threshold <= aspect_ratio / magic_aspect <= 1 + threshold and area > best_area:
+            if (
+                1 - threshold <= aspect_ratio / magic_aspect <= 1 + threshold
+                and area > best_area
+                and area > min_area
+            ):
                 pts = approx.reshape(4, 2).astype(np.float32)
                 ordered = order_points(pts)
                 best_candidate = ordered
                 best_area = area
 
-    if best_candidate is not None:  
+    if best_candidate is not None:
         dest = np.array([[0, 0], [width - 1, 0], [width - 1, height - 1], [0, height - 1]], dtype="float32")
         M = cv2.getPerspectiveTransform(best_candidate, dest)
-        return M, best_candidate
+        if return_img:
+            img_out = img.copy()
+            cv2.drawContours(img_out, [np.int32(best_candidate)], -1, (255, 255, 0), 2)
+            return M, best_candidate, img_out
+        else:
+            return M, best_candidate
 
-    return None, None
+    return None, None, img if return_img else (None, None)
+
 
 
 def extract_region(original_img, M_inv, rect_coords, scale=3):
@@ -92,3 +105,6 @@ def search_card(name=None, set_code=None, number=None, rarity=None, lang=None):
 
     response = requests.get(url, params=params)
     return response.json()
+
+def is_found(response):
+    return response.get("object") != "error" and response.get("total_cards", 0) > 0

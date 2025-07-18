@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def draw_contours(img, threshold_1 = 50, threshold_2 = 150, tolerance = 0.1, min_area = 1000):
+def draw_contours(img, threshold_1 = 50, threshold_2 = 150, tolerance = 0.2, min_area = 1000):
 
     magic_aspect = 6.35/8.89
 
