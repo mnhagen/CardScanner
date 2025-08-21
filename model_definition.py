@@ -4,7 +4,6 @@ from torchvision import transforms
 
 def get_transform():
     random_transform = transforms.Compose([
-        transforms.Resize((224,224)),
         transforms.RandomRotation(degrees=5),
         transforms.RandomPerspective(distortion_scale=0.1, p=0.5),
         transforms.RandomAffine(degrees=0, translate=(0.05, 0.05)),
@@ -18,7 +17,6 @@ def get_transform():
     ])
 
     clean_transform = transforms.Compose([
-        transforms.Resize((224,224)),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406],
                              [0.229, 0.224, 0.225])

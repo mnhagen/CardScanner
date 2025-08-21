@@ -4,9 +4,10 @@ import re
 import json
 import requests
 import urllib.request
+from PIL import Image
 
 #set code
-set_code = "SLD"
+set_code = "SLD" #current model supports EOE and SLD
 
 # ------------------------
 # Helpers
@@ -98,6 +99,11 @@ def download_images(cards, set_code: str):
                 img_url = card["image_uris"]["normal"]
                 urllib.request.urlretrieve(img_url, out_path)
 
+                #resize
+                with Image.open(out_path) as img:
+                    img = img.resize((224,224), Image.LANCZOS)
+                    img.save(out_path)
+
         elif "card_faces" in card:
             for i, face in enumerate(card["card_faces"]):
                 if "image_uris" in face:
@@ -105,6 +111,10 @@ def download_images(cards, set_code: str):
                     if not os.path.exists(out_path):
                         img_url = face["image_uris"]["normal"]
                         urllib.request.urlretrieve(img_url, out_path)
+
+                        with Image.open(out_path) as img:
+                            img = img.resize((224, 224), Image.LANCZOS)
+                            img.save(out_path)
 
     print(f"Finished building dataset at {dataset_dir}")
 
