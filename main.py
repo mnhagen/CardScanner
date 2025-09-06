@@ -11,7 +11,7 @@ from skimage.metrics import structural_similarity as ssim
 # ------------------------
 # Load model + class mapping
 # ------------------------
-model_name = "scanner_EOE+SLD_lite"
+model_name = "scanner_EOE+SLD"
 MODEL_PATH = f"models/{model_name}.pth"
 IDX_PATH   = f"models/idx_{model_name}.json"
 
@@ -100,7 +100,7 @@ def main():
     last_warped_gray = None
     pred_class_old = None
     SIMILARITY_THRESHOLD = 0.9  # higher = stricter
-    CONF_THRESHOLD = 0.02
+    CONF_THRESHOLD = 0.5
 
     while True:
         ret, frame = capture.read()

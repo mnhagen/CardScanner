@@ -7,7 +7,7 @@ import urllib.request
 from PIL import Image
 
 #set code
-set_code = "SLD" #current model supports EOE and SLD
+set_code = "TDM" #current model supports EOE and SLD
 
 # ------------------------
 # Helpers
@@ -39,6 +39,8 @@ def build_global_classes(root_dirs):
     idx_to_class = {i: cls_name for cls_name, i in class_to_idx.items()}
 
     return class_to_idx, idx_to_class
+
+
 
 
 

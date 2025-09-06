@@ -2,7 +2,7 @@ import torch.nn as nn
 import torchvision.models as models
 from torchvision import transforms
 
-def get_transform():
+def get_transforms():
     random_transform = transforms.Compose([
         transforms.RandomRotation(degrees=5),
         transforms.RandomPerspective(distortion_scale=0.1, p=0.5),
