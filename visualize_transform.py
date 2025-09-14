@@ -12,7 +12,7 @@ random_transform, _ = get_transforms()
 # ----------------------
 # Load local image
 # ----------------------
-img_path = "data\EOE\dataset\Adagia_ Windswept Bastion_EOE_250\Adagia_ Windswept Bastion_EOE_250.jpg"  # <-- replace with actual file
+img_path = "data\EOE\dataset\EOE_Adagia_ Windswept Bastion_250\EOE_Adagia_ Windswept Bastion_250.jpg"  # <-- replace with actual file
 img = Image.open(img_path).convert("RGB")
 
 # ----------------------
