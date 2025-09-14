@@ -1,0 +1,4 @@
+1. look into camera settings. the camera on desktop is obviously worse than the one on laptop, so either train model better or make training data noisier/uglier
+2. less strict boundary recognition for full arts/secret lairs
+3. fix indexing for multiple sets
+4. check if basic lands and tokens are included or not since they were not recognized.

@@ -90,7 +90,7 @@ def download_images(cards, set_code: str):
         name = safe_filename(card["name"])
         set_name = card["set"].upper()
         collector = card.get("collector_number", "NA")
-        filename_base = f"{name}_{set_name}_{collector}"
+        filename_base = f"{set_name}_{name}_{collector}"
 
         dst_dir = os.path.join(dataset_dir, filename_base)
         os.makedirs(dst_dir, exist_ok=True)
