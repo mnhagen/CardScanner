@@ -2,3 +2,4 @@
 2. less strict boundary recognition for full arts/secret lairs
 3. look into alternative to simple scheduler for LR: OneCycleLR looks promising
 4. check if basic lands and tokens are included or not since they were not recognized
+5. modify training loop to only break if val_acc = 1.000 with patience 2
